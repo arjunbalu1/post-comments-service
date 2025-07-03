@@ -7,6 +7,7 @@ A simple RESTful service for creating posts and comments, with Markdown support 
 ## Database
 - **Database name:** `post_comments_service`
 - **Tables:** `users`, `posts`, `comments`
+- **Why PostgreSQL?** I picked PostgreSQL because I like my data consistent and my queries snappy. GORM lets me move fast without breaking things.
 
 ---
 
