@@ -10,4 +10,5 @@ type Post struct {
 	Content   string `json:"content"`
 	CreatedAt time.Time
 	Comments  []Comment `json:"comments" gorm:"foreignkey:PostID"`
+	Username  string    `json:"username"`
 }

@@ -23,6 +23,6 @@ func InitDB() {
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
-	DB.AutoMigrate(&models.Post{}, &models.Comment{})
+	DB.AutoMigrate(&models.User{}, &models.Post{}, &models.Comment{}) // User: Username is PK, Post/Comment use Username for association
 	fmt.Println("Database connection established and migrated")
 }

@@ -22,6 +22,12 @@ func AddComment(c *gin.Context) {
 		return
 	}
 
+	// Input validation: require non-empty content
+	if comment.Content == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Content is required"})
+		return
+	}
+
 	// Check if the post exists in the database
 	if err := database.DB.First(&models.Post{}, postID).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Post not found"})
@@ -31,6 +37,9 @@ func AddComment(c *gin.Context) {
 	// Convert the postID from string to uint, because Comment.PostID is a uint
 	// This is necessary because URL parameters are always strings
 	comment.PostID = parseUint(postID)
+
+	// Set the username from the authenticated user
+	comment.Username = c.GetString("username")
 
 	// Save the comment to the database
 	if err := database.DB.Create(&comment).Error; err != nil {

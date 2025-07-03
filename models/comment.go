@@ -9,4 +9,5 @@ type Comment struct {
 	PostID    uint   `json:"post_id"`
 	Content   string `json:"content"`
 	CreatedAt time.Time
+	Username  string `json:"username"`
 }

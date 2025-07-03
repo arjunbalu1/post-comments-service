@@ -19,6 +19,13 @@ func CreatePost(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	// Input validation: require non-empty title and content
+	if post.Title == "" || post.Content == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Title and content are required"})
+		return
+	}
+	// Set the username from the authenticated user
+	post.Username = c.GetString("username")
 	// Save post to database
 	if err := database.DB.Create(&post).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
